@@ -1,25 +1,56 @@
 import numpy as np
 
-def pointless_sort(x):
+def bubblesort(vec):
     """
-    This function always returns the same values to show how testing
-    works, check out the `test/test_alg.py` file to see.
-    """
-    return np.array([1,2,3])
-
-def bubblesort(x):
-    """
-    Describe how you are sorting `x`
+    x is an integer array of length 0 to j. bubblesort returns an array of
+    length j in ascending order by swapping adjacent elements if they are not
+    in the desired order.
     """
 
-    assert 1 == 2
-    return x
+    # Outer loop: seq through each index of the given array
+    for j in range(0, len(vec)-1):
 
-def quicksort(x):
+        # Inner loop: if the element is greater than that of the next index, swap places
+        for i in range(0,len(vec)-j-1):
+
+            if vec[i] > vec[i+1]:
+                vec[i], vec[i+1] = vec[i+1], vec[i]
+
+    return vec
+
+def quicksort(vec):
     """
-    Describe how you are sorting `x`
+    x is an integer array of length 0 to i. quicksort returns an array of length i
+    in ascending order by recursively partitioning around a pivot until all
+    elements are in the desired order.
     """
 
-    assert 1 == 2
-    return
+    # Initialize vectors to hold partitioned values
+    left = []
+    right = []
+    equal = []
 
+    # Only run if vector contains elements
+    if len(vec) > 1:
+
+        # Pick a pivot (first element in the vector)
+        q = vec[0]
+
+        # Scan through the vector, assigning each element to new vectors
+        # based on whether it is larger or smaller than the partition
+        i = 0
+        while i < len(vec):
+            if vec[i] < q:
+                left.append(vec[i])
+            elif vec[i] == q:
+                equal.append(vec[i])
+            else:
+                right.append(vec[i])
+            i = i+1
+
+        # Do this recursively to the partitioned vectors
+        return quicksort(left) + equal + quicksort(right)
+
+    # in the case of empty vectors, just return it
+    else:
+        return vec
