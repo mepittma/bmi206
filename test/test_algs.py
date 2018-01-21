@@ -9,64 +9,41 @@ def test_bubblesort():
     # failing, (2) does your code handle characters?
 
     # 1) Test odd-sized vector + duplicate values
-    x = np.array([1,2,4,0,1])
-    y = algs.bubblesort(x)
-    assert y == np.array([0,1,1,2,4])
+    assert algs.bubblesort([1,2,4,0,1]) == [0,1,1,2,4]
 
     # 2) Test even+duplicate values
-    x = np.array([1,2,4,0,1,4])
-    y = algs.bubblesort(x)
-    assert y == np.array([0,1,1,2,4,4])
+    assert algs.bubblesort([1,2,4,6,0,1]) == [0,1,1,2,4,6]
 
     # 3) Test empty vector
-    x = np.array([])
-    y = algs.bubblesort(x)
-    assert y == np.array([])
+    assert algs.bubblesort([]) == []
 
     # 4) Test single-element vectors
-    x = np.array([1])
-    y = algs.bubblesort(x)
-    assert y == np.array([1])
+    assert algs.bubblesort([1]) == [1]
 
     # 5) Test single-value vectors
-    x = np.array([1,1,1,1,1,1,1,1,1])
-    y = algs.bubblesort(x)
-    assert y == np.array([1,1,1,1,1,1,1,1,1])
+    assert algs.bubblesort([1,1,1,1,1,1,1,1]) == [1,1,1,1,1,1,1,1]
 
     # 6) Test vector of strings
-    x = ["will", "this", "work"]
-    y = algs.bubblesort(x)
-    assert y == ["this", "will", "work"]
+    assert algs.bubblesort(["will", "this", "work"]) == ["this", "will", "work"]
+
 
 
 def test_quicksort():
 
     # 1) Test odd-sized vector + duplicate values
-    x = np.array([1,2,4,0,1])
-    y = algs.quicksort(x)
-    assert y == np.array([0,1,1,2,4])
+    assert algs.quicksort([1,2,4,0,1]) == [0,1,1,2,4]
 
     # 2) Test even+duplicate values
-    x = np.array([1,2,4,0,1,4])
-    y = algs.quicksort(x)
-    assert y == np.array([0,1,1,2,4,4])
+    assert algs.quicksort([1,2,4,6,0,1]) == [0,1,1,2,4,6]
 
     # 3) Test empty vector
-    x = np.array([])
-    y = algs.quicksort(x)
-    assert y == np.array([])
+    assert algs.quicksort([]) == []
 
     # 4) Test single-element vectors
-    x = np.array([1])
-    y = algs.quicksort(x)
-    assert y == np.array([1])
+    assert algs.quicksort([1]) == [1]
 
     # 5) Test single-value vectors
-    x = np.array([1,1,1,1,1,1,1,1,1])
-    y = algs.quicksort(x)
-    assert y == np.array([1,1,1,1,1,1,1,1,1])
+    assert algs.quicksort([1,1,1,1,1,1,1,1]) == [1,1,1,1,1,1,1,1]
 
     # 6) Test vector of strings
-    x = ["will", "this", "work"]
-    y = algs.quicksort(x)
-    assert y == ["this", "will", "work"]
+    assert algs.quicksort(["will", "this", "work"]) == ["this", "will", "work"]
