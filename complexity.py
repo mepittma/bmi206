@@ -79,3 +79,15 @@ for i in np.arange(100,1001,100):
 create_fig(quick_rand, bubble_rand, "Random List Input")
 create_fig(quick_sorted, bubble_sorted, "Sorted List Input")
 create_fig(quick_rev, bubble_rev, "Reverse-Sorted Input")
+
+# Create a plot to demonstrate what n^2 and nlog(n) look like
+x = np.arange(100, 1001, 100)
+
+plt.plot(x, x * np.log2(x), label='nlog(n)')
+plt.plot(x, x ** 2, label='n-squared')
+
+plt.title("Reference functions")
+plt.legend()
+plt.savefig('output/reference.png', bbox_inches='tight')
+
+plt.clf()
