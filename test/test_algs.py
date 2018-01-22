@@ -3,11 +3,7 @@ from sort import algs
 
 
 def test_bubblesort():
-    # Actually test bubblesort here. It might be useful to think about
-    # some edge cases for your code, where it might fail. Some things to
-    # think about: (1) does your code handle 0-element arrays without
-    # failing, (2) does your code handle characters?
-
+    
     # 1) Test odd-sized vector + duplicate values
     assert algs.bubblesort([1,2,4,0,1]) == [0,1,1,2,4]
 
@@ -23,7 +19,14 @@ def test_bubblesort():
     # 5) Test single-value vectors
     assert algs.bubblesort([1,1,1,1,1,1,1,1]) == [1,1,1,1,1,1,1,1]
 
-    # 6) Test vector of strings
+    # 6) Test vectors with negative values
+    assert algs.bubblesort([-2,-6,8,9,-4]) == [-6,-4,-2,8,9]
+
+    # 7) Test ordered and reverse-order lists of large size
+    assert algs.bubblesort(range(1000)) == range(1000)
+    assert algs.bubblesort(list(reversed(range(1000)))) == list(range(1000))
+
+    # 8) Test vector of strings
     assert algs.bubblesort(["will", "this", "work"]) == ["this", "will", "work"]
 
 
@@ -45,5 +48,12 @@ def test_quicksort():
     # 5) Test single-value vectors
     assert algs.quicksort([1,1,1,1,1,1,1,1]) == [1,1,1,1,1,1,1,1]
 
-    # 6) Test vector of strings
+    # 6) Test vectors with negative values
+    assert algs.quicksort([-2,-6,8,9,-4]) == [-6,-4,-2,8,9]
+
+    # 7) Test ordered and reverse-order lists of large size
+    assert algs.quicksort(range(1000)) == list(range(1000))
+    assert algs.quicksort(list(reversed(range(1000)))) == list(range(1000))
+
+    # 8) Test vector of strings
     assert algs.quicksort(["will", "this", "work"]) == ["this", "will", "work"]

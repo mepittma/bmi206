@@ -34,7 +34,7 @@ def quicksort(vec):
     if len(vec) > 1:
 
         # Pick a pivot (first element in the vector)
-        q = vec[0]
+        q = vec[int(len(vec)/2)]
 
         # Scan through the vector, assigning each element to new vectors
         # based on whether it is larger or smaller than the partition
