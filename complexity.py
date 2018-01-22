@@ -47,38 +47,31 @@ def create_fig(quick, bubble, title):
     plt.clf()
 
 # Create vectors to compare runtime
-quick_rand = []
-bubble_rand = []
-
-quick_sorted = []
-bubble_sorted = []
-
-quick_rev = []
-bubble_rev = []
+quick_avg = []
+bubble_avg = []
 
 # Test the time each function takes to run on lists from 100 to 1000 in
 # increments of 100
 for i in np.arange(100,1001,100):
 
-    # Test on a randomly-chosen vector of integers
-    vec = np.random.randint(0, 2000, i)
-    quick_rand.append(time_sort(vec, "quick"))
-    bubble_rand.append(time_sort(vec, "bubble"))
+    # Average the results from 100 trials
+    quick_trials = []
+    bubble_trials = []
 
-    # Test on a pre-sorted vector of integers
-    vec = np.arange(0, i)
-    quick_sorted.append(time_sort(vec, "quick"))
-    bubble_sorted.append(time_sort(vec, "bubble"))
+    for j in range(0, 100):
 
-    # Test on a reverse-sorted vector of integers
-    vec = list(reversed(range(i)))
-    quick_rev.append(time_sort(vec, "quick"))
-    bubble_rev.append(time_sort(vec, "bubble"))
+        # Test on a randomly-chosen vector of integers
+        vec = np.random.randint(0, 2000, i)
+        quick_trials.append(time_sort(vec, "quick"))
+        bubble_trials.append(time_sort(vec, "bubble"))
+
+    # Average the contents of the trials together, append to times
+    quick_avg.append(sum(quick_trials)/len(quick_trials))
+    bubble_avg.append(sum(bubble_trials)/len(bubble_trials))
+
 
 # Make a graph showing time for the different types of input lists
-create_fig(quick_rand, bubble_rand, "Random List Input")
-create_fig(quick_sorted, bubble_sorted, "Sorted List Input")
-create_fig(quick_rev, bubble_rev, "Reverse-Sorted Input")
+create_fig(quick_avg, bubble_avg, "Random List Input (avg over 100 trials)")
 
 # Create a plot to demonstrate what n^2 and nlog(n) look like
 x = np.arange(100, 1001, 100)
