@@ -30,7 +30,7 @@ def quicksort(vec):
     right = []
     equal = []
 
-    # Only run if vector contains elements
+    # Only run if vector contains multiple elements
     if len(vec) > 1:
 
         # Pick a pivot (first element in the vector)
@@ -42,15 +42,15 @@ def quicksort(vec):
         while i < len(vec):
             if vec[i] < q:
                 left.append(vec[i])
-            elif vec[i] == q:
-                equal.append(vec[i])
-            else:
+            elif vec[i] > q:
                 right.append(vec[i])
+            else:
+                equal.append(vec[i])
             i = i+1
 
         # Do this recursively to the partitioned vectors
         return quicksort(left) + equal + quicksort(right)
 
-    # in the case of empty vectors, just return it
+    # in the case of empty/singleton vectors, just return it
     else:
         return vec

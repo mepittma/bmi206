@@ -16,8 +16,6 @@ def bubblesort(vec):
         # Inner loop: if the element is greater than that of the next index, swap places
         for i in range(0,len(vec)-j-1):
 
-
-
             if vec[i] > vec[i+1]:
                 vec[i], vec[i+1] = vec[i+1], vec[i]; assnmnt += 2
 
@@ -54,17 +52,17 @@ def quicksort(vec):
         i = 0; assnmnt += 1
         while i < len(vec):
 
-            cndtl += 1
             if vec[i] < q:
                 left.append(vec[i])
+                cndtl += 1
 
-            cndtl += 1
-            elif vec[i] == q:
-                equal.append(vec[i])
-
-            cndtl += 1
-            else:
+            elif vec[i] > q:
                 right.append(vec[i])
+                cndtl += 2
+
+            else:
+                equal.append(vec[i])
+                cndtl += 3
             i = i+1
 
         # Do this recursively to the partitioned vectors
