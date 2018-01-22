@@ -38,15 +38,13 @@ def quicksort(vec):
 
         # Scan through the vector, assigning each element to new vectors
         # based on whether it is larger or smaller than the partition
-        i = 0
-        while i < len(vec):
+        for i  in range(0, len(vec)-1):
             if vec[i] < q:
                 left.append(vec[i])
             elif vec[i] == q:
                 equal.append(vec[i])
             else:
                 right.append(vec[i])
-            i = i+1
 
         # Do this recursively to the partitioned vectors
         return quicksort(left) + equal + quicksort(right)
