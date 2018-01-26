@@ -1,5 +1,3 @@
-import numpy as np
-
 def bubblesort(vec):
     """
     x is an integer array of length 0 to j. bubblesort returns an array of
@@ -17,6 +15,7 @@ def bubblesort(vec):
         for i in range(0,len(vec)-j-1):
 
             if vec[i] > vec[i+1]:
+                cndtl += 1
                 vec[i], vec[i+1] = vec[i+1], vec[i]; assnmnt += 2
 
     return [vec, assnmnt, cndtl]
@@ -52,6 +51,9 @@ def quicksort(vec):
         i = 0; assnmnt += 1
         while i < len(vec):
 
+            # Each iteration of the while loop evaluates the statement i<len(vec)
+            cndtl += 1
+
             if vec[i] < q:
                 left.append(vec[i])
                 cndtl += 1
@@ -62,8 +64,8 @@ def quicksort(vec):
 
             else:
                 equal.append(vec[i])
-                cndtl += 3
-            i = i+1
+                cndtl += 2 #assuming the else statement isn't actually evaluated?
+            i += 1; assnmnt += 1
 
         # Do this recursively to the partitioned vectors
         return quicksort(left) + equal + quicksort(right)
