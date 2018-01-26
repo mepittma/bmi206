@@ -109,7 +109,7 @@ plt.plot(x, x * np.log2(x), label='log-linear')
 plt.plot(x, x ** 2, label='n-squared')
 plt.plot(x, x, label='linear')
 plt.plot(x, np.log2(x), label='log')
-plt.plot(x, 2^x, label='exponential')
+plt.plot(x, 2 ** x, label='exponential')
 
 plt.title("Reference functions")
 plt.legend()
