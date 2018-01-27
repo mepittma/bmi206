@@ -11,7 +11,8 @@ import time
 def time_sort(vec, method):
     """
     This function takes a vector and sorting method as its input and outputs
-    the time it took to run the functions (in seconds).
+    a vector with [the time it took to run the functions (in seconds), number
+    of assignments made, number of conditionals made].
     """
 
     start = time.time()
@@ -23,30 +24,18 @@ def time_sort(vec, method):
 
     return [time.time() - start, x[1], x[2]]
 
-def create_fig(quick, bubble, title, yscale):
+def transform(x,y):
     """
-    This function is a very specific figure-generating function for the case in
-    which a list composed of  # elements ranging from [100, 200, 300, ... , 1000]
-    has been sorted with both quicksort and bubblesort. Input are the vectors
-    containing the number of seconds taken to sort each list for both quickSort
-    and bubblesort. A graph is saved for cases of random lists, sorted lists,
-    and reverse-sorted lists.
+    This function takes an input vector of x values and y values, transforms them
+    to return the y in a linearized format (assuming nlogn function was used
+    to create y from x)
     """
-    x = np.arange(100, 1001, 100)
+    final = []
+    for i in range(0, len(y)):
+        new = y[i]#/x[i]
+        final.append(2 ** new)
 
-    plt.plot(x, quick, label='QuickSort')
-    plt.plot(x, bubble, label='BubbleSort')
-
-    plt.xlabel('N elements in list')
-    plt.ylabel('Time to sort (seconds)')
-
-    plt.yscale(yscale)
-
-    plt.title(title)
-    plt.legend()
-    plt.savefig('output/{}.png'.format(title), bbox_inches='tight')
-
-    plt.clf()
+    return final
 
 # Create vectors to compare runtime, assignments, and conditionals
 quick_avg = []
@@ -96,40 +85,77 @@ for i in np.arange(100,1001,100):
     b_c_avg.append(sum(b_cndtl)/len(b_cndtl))
 
 
+# Print results
+print('Q assignments: {}\nB assignments: {}\nQ conditionals: {}\nB conditionals: {}'.format(q_a_avg, b_a_avg, q_c_avg, b_c_avg))
+
 # Make a graph showing time for the different types of input lists
-create_fig(quick_avg, bubble_avg, "Random List Input (avg over 100 trials)", "linear")
-
-# Log-transformed graph
-create_fig(quick_avg, bubble_avg, "Random List Input (log-scale)", "log")
-
-# Create a plot to demonstrate what n^2 and nlog(n) look like
 x = np.arange(100, 1001, 100)
 
-plt.plot(x, x * np.log2(x), label='log-linear')
-plt.plot(x, x ** 2, label='n-squared')
-plt.plot(x, x, label='linear')
-plt.plot(x, np.log2(x), label='log')
-plt.plot(x, 2 ** x, label='exponential')
+# Figure to show reference complexities
+fig, ax = plt.subplots()
+ax.plot(x, x * np.log2(x), label='log-linear')
+ax.plot(x, x ** 2, label='n-squared')
+#ax.plot(x, x, label='linear')
+#ax.plot(x, np.log2(x), label='log')
 
-plt.title("Reference functions")
-plt.legend()
-plt.savefig('output/reference.png', bbox_inches='tight')
+ax.set(xlabel='x', ylabel='y',
+       title='Reference Functions')
+ax.grid()
+ax.legend()
 
-plt.clf()
+fig.savefig('output/reference.png', bbox_inches='tight')
+fig.clf()
 
-# Create a plot to show the average number of assignments and conditionals
-x = np.arange(100, 1001, 100)
+# Figure to show complexity of my algorithm
+fig, ax = plt.subplots()
+ax.plot(x, quick_avg, label='QuickSort time')
+ax.plot(x, bubble_avg, label='BubbleSort time')
 
-plt.plot(x, q_a_avg, label='QuickSort Assignments')
-plt.plot(x, b_a_avg, label='BubbleSort Assignments')
-plt.plot(x, q_c_avg, label='QuickSort Conditionals')
-plt.plot(x, b_c_avg, label='BubbleSort Conditionals')
+ax.set(xlabel='input vector length', ylabel='time to sort (s)',
+       title='Algorithm Performance\n(average of 100 trials)')
+ax.grid()
+ax.legend()
 
-plt.xlabel('N elements in list')
-plt.ylabel('Number of entities')
+fig.savefig('output/time.png', bbox_inches='tight')
+fig.clf()
 
-plt.title('Conditionals and Assignments')
-plt.legend()
-plt.savefig('output/assignments_conditionals.png', bbox_inches='tight')
+# Figure to show sqrt-transformed complexities
+fig, ax = plt.subplots()
+ax.plot(x, np.sqrt(quick_avg), label='QuickSort time')
+ax.plot(x, np.sqrt(bubble_avg), label='BubbleSort time')
 
-plt.clf()
+ax.set(xlabel='input vector length', ylabel='sqrt time to sort (sqrt(s))',
+       title='Algorithm Performance\n(scaled)')
+ax.grid()
+ax.legend()
+
+fig.savefig('output/sqrt-timed.png', bbox_inches='tight')
+fig.clf()
+
+# Figure to show exp-transformed complexities
+fig, ax = plt.subplots()
+ax.plot(x, transform(x,quick_avg), label='QuickSort time')
+ax.plot(x, transform(x,bubble_avg), label='BubbleSort time')
+
+ax.set(xlabel='input vector length', ylabel='exponent-transformed time to sort',
+       title='Algorithm Performance\n(scaled)')
+ax.grid()
+ax.legend()
+
+fig.savefig('output/exp-timed.png', bbox_inches='tight')
+fig.clf()
+
+# Figure to show assignments/conditionals
+fig, ax = plt.subplots()
+ax.plot(x, q_a_avg, label='QuickSort Assignments')
+ax.plot(x, b_a_avg, label='BubbleSort Assignments')
+ax.plot(x, q_c_avg, label='QuickSort Conditionals')
+ax.plot(x, b_c_avg, label='BubbleSort Conditionals')
+
+ax.set(xlabel='input vector length', ylabel='number of entities',
+       title='Assignments & Conditionals')
+ax.grid()
+ax.legend()
+
+fig.savefig('output/assignments.png', bbox_inches='tight')
+fig.clf()
